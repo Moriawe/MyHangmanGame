@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">MyHangmanGame</string>
+
+    <string name="game_name">Hänga gubben</string>
+
+    <!-- Buttons -->
+    <string name="easy_game">Lätt</string>
+    <string name="medium_game">Medium</string>
+    <string name="hard_game">Svårt</string>
+
+    <!-- Game Activity -->
+    <string name="guess_goes_here">Skriv din gissning här</string>
+
+</resources>
