@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyHangmanGame</string>
+    <string name="app_name">Mitt Hänga Gubben Spel</string>
 
     <string name="game_name">Hänga gubben</string>
 
@@ -10,5 +10,20 @@
 
     <!-- Game Activity -->
     <string name="guess_goes_here">Skriv din gissning här</string>
+
+    <!-- Info Activity -->
+    <string name="rules">Har du ett ord på 10 bokstäver, till exempel ordet ”skottkärra”,
+        då börjar man med att rita 10 streck på ett papper eller en skrivtavla.
+        Motspelaren ska sedan gissa första bokstaven. \n
+
+        Låt oss säga att man gissar på S. Det är rätt och första bokstaven i ordet.
+        Då skriver den som ska göra den hängande gubben ett S på det strecket.
+        Spelaren som gissar rätt kan gissa igen och gissar då på A.
+        Den bokstaven finns inte i ordet och då kan den som skriver göra första strecket i gubben.
+        I det här spelet består gubben av 8 olika streck.
+        Varje gång den som gissar får rätt bokstav så klarar man sig från att få ett nytt streck i figuren.
+        Klarar man att gissa innan gubben hänger i snaran så har man vunnit.
+        Om man gissar fel bokstäver så förlorar man när figuren är komplett.</string>
+    <string name="made_by">Jennie APP21</string>
 
 </resources>

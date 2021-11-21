@@ -173,6 +173,7 @@ public class Game {
 
     public int getMAXFAILS() { return MAXFAILS; }
 
+
     // Me trying to read a file into an Array
 
     /*

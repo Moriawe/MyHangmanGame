@@ -6,36 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".GameActivity">
 
-    <android.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:layout_constraintBottom_toTopOf="@+id/hangman_screen"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    <include
+        layout="@layout/toolbar_layout"/>
 
     <ImageView
         android:id="@+id/hangman_screen"
-        android:layout_width="258dp"
-        android:layout_height="212dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/guess_edit_text"
+        android:layout_width="411dp"
+        android:layout_height="210dp"
+        app:layout_constraintBottom_toTopOf="@+id/view_of_the_word"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.429"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.643"
+        app:srcCompat="@drawable/pic10" />
 
     <EditText
         android:id="@+id/guess_edit_text"
@@ -91,6 +74,7 @@
         app:layout_constraintHorizontal_bias="0.833"
         app:layout_constraintStart_toStartOf="parent" />
 
+
     <!--
 
     <TextView
@@ -109,3 +93,4 @@
         -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

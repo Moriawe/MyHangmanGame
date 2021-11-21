@@ -1,7 +1,9 @@
 package com.moriawe.myhangmangame;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -14,11 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Scanner;
-
 public class GameActivity extends AppCompatActivity {
+
+    private Toolbar toolbar;
 
     private ImageView screenImage;
     private EditText guessText;
@@ -37,6 +37,34 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        // Actionbar
+        toolbar = findViewById(R.id.myToolBar);
+        setSupportActionBar(toolbar);
+        ImageView goToHomeScreen = findViewById(R.id.home_icon);
+        ImageView backToGame = findViewById(R.id.back_icon);
+        ImageView infoAboutApp = findViewById(R.id.info_icon);
+        goToHomeScreen.setVisibility(View.VISIBLE);
+        backToGame.setVisibility(View.INVISIBLE);
+        infoAboutApp.setVisibility(View.VISIBLE);
+
+        goToHomeScreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(GameActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        infoAboutApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(GameActivity.this, InfoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        // Gameview
         screenImage = (ImageView) findViewById(R.id.hangman_screen);
         guessText = (EditText) findViewById(R.id.guess_edit_text);
         playButton = (ImageButton) findViewById(R.id.button_play);
@@ -140,16 +168,16 @@ public class GameActivity extends AppCompatActivity {
         if (newGame.didTheUserWin()) {
 
                 message = "You won! Congratulations!";
-                results = "The word was " + newGame.getChosenWord() +
-                        "\n + You had " + (newGame.getMAXFAILS() - newGame.getTimesFailed()) + " tries left.";
+                results = "The word was: " + newGame.getChosenWord() +
+                        "\n You had " + (newGame.getMAXFAILS() - newGame.getTimesFailed()) + " tries left.";
                 GameOverDialog dialog = new GameOverDialog(message, results);
                 dialog.show(getSupportFragmentManager(), "Game Over Dialog Call");
 
         } else if (newGame.didTheUserLoose()) {
 
             message = "You lost!";
-            results = "The word was " + newGame.getChosenWord() +
-                    "\n + You had " + (newGame.getMAXFAILS() - newGame.getTimesFailed()) + " tries left.";
+            results = "The word was: " + newGame.getChosenWord() +
+                    "\n You had " + (newGame.getMAXFAILS() - newGame.getTimesFailed()) + " tries left.";
             GameOverDialog dialog = new GameOverDialog(message, results);
             dialog.show(getSupportFragmentManager(), "Game Over Dialog Call");
         }
@@ -191,6 +219,7 @@ public class GameActivity extends AppCompatActivity {
         toast.show();
     }
 
+/*  Jag ger upp att försöka läsa in en fil till array...
 
     // Tobbe hjälpte mig hitta en metod som korrekt kunde läsa in en txt fil.
 
@@ -225,7 +254,7 @@ public class GameActivity extends AppCompatActivity {
                 Toast.makeText(GameActivity.this, e.getClass().getSimpleName() + ": " + e.getMessage() , Toast.LENGTH_SHORT).show();
             }
         }
-    }
+    } */
 
 
 }
