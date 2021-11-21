@@ -1,48 +1,229 @@
 package com.moriawe.myhangmangame;
 
 import android.util.Log;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+
+
 
 public class Game {
 
     static Random rand = new Random();
 
-    private ArrayList<String> listOfWords;
+    public ArrayList<String> listOfWords;
+    public ArrayList<Character> guessedCharacters = new ArrayList<>();
+
     private String gameMode;
     private String chosenWord;
-    private String hiddenWord;
-    private static final int MAXFAILS = 10;
+    private String displayWord;
+
+    private int timesFailed;
+    private static final int MAXFAILS = 8;
+
+    String textFile;
+
 
     public Game(String gameMode) {
         this.gameMode = gameMode;
     }
 
 
-    public void challengeLevel() throws FileNotFoundException { //TODO throws exception? //
-
-        String textFile = "easy.txt"; //TODO an if in case textfile isn't given a value
+    // [1] Runs to set up a list of words appropriate to the games ChallengeLevel
+    public void makeUpWords() {
         listOfWords = new ArrayList<String>();
+        listOfWords.add("Doll");
+        listOfWords.add("Yellow");
+        listOfWords.add("Camel");
+        listOfWords.add("Friend");
+        listOfWords.add("Pony");
+        listOfWords.add("Apple");
+        listOfWords.add("Castle");
+        listOfWords.add("Boat");
+        listOfWords.add("Lunch");
+        listOfWords.add("Honey");
+        listOfWords.add("Toy");
 
-        if (gameMode.equals("easy")) {
+    }
 
-            textFile = "easy.txt";
+    public void challengeLevel() {
 
-        } else if (gameMode.equals("medium")) {
+        switch(gameMode) {
+            case "easy":
+                textFile = "easy.txt";
+                break;
+            case "hard":
+                textFile = "hard.txt";
+                break;
+            default:
+                textFile = "easy.txt"; //TODO an if in case textfile isn't given a value
+                break;
+        }
+        //readFile(textFile);
+    }
 
-            textFile = "medium.txt";
 
-        } else if (gameMode.equals("hard")) {
 
-            textFile = "hard.txt";
 
+
+    // [2] Randomly chooses a word from the list
+    public void choseWord(){
+
+        if (!listOfWords.isEmpty()) {
+
+            //gets a word and turns it to UPPERCASE
+            chosenWord = listOfWords.get(rand.nextInt(listOfWords.size())).toUpperCase();
+
+            hideTheDisplayWord();
+
+            Log.w("choseWord", "Successfully picked a name from the arraylist");
+
+        } else {
+            Log.w("choseWord", "Couldn't get a word from Array");
         }
 
+    }
+
+
+    // [3] Takes the correct word and turns it into "_" for every char in it
+    public void hideTheDisplayWord() {
+
+        displayWord = "";
+
+        for (int i=0; i < chosenWord.length(); i++ ) {
+            displayWord += "_";
+        }
+
+    }
+
+
+    // Checks if the guessed char is in the word
+    public boolean checkIfGuessIsCorrect(char guess) {
+
+        boolean guessWasRight = false;
+        guessedCharacters.add(guess);
+
+            for (int i = 0; i < chosenWord.length(); i++) {
+                if (guess == chosenWord.charAt(i)) {
+                    displayWord = replaceCharUsingCharArray(displayWord, chosenWord.charAt(i), i);
+                    guessWasRight = true;
+                }
+            }
+
+    return guessWasRight;
+
+    }
+
+
+    // Replaces the "_" in the String with the correct char
+    public String replaceCharUsingCharArray(String str, char ch, int index) {
+        char[] chars = str.toCharArray();
+        chars[index] = ch;
+        return String.valueOf(chars);
+    }
+
+
+    public boolean haveITriedThisOneBefore(char guess) {
+
+        boolean yesYouHave = false;
+
+        for (int i = 0; i < guessedCharacters.size(); i++) {
+
+            if (guess == guessedCharacters.get(i)) {
+                yesYouHave = true;
+            }
+        }
+        return yesYouHave;
+    }
+
+    // Checks to see if the user have the full word
+    public boolean didTheUserWin() {
+
+        if (chosenWord.equals(displayWord)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean didTheUserLoose() {
+
+        if (timesFailed == MAXFAILS) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    public String getChosenWord() {
+        return chosenWord;
+    }
+
+    public String getDisplayWord() {
+        return displayWord;
+    }
+
+    public int getTimesFailed() {
+        return timesFailed;
+    }
+
+    public void setTimesFailed(int timesFailed) {
+        this.timesFailed = timesFailed;
+    }
+
+    public int getMAXFAILS() { return MAXFAILS; }
+
+    // Me trying to read a file into an Array
+
+    /*
+    public void readFile(String path) {
+
+        listOfWords = new ArrayList<String>();
+
+        AssetManager am = GameActivity.getAssets();
+
+        try {
+            InputStream is = am.open(path);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            String line;
+
+            while ((line = reader.readLine()) != null)
+                listOfWords.add(line);
+        } catch (IOException e) {
+                e.printStackTrace();
+        }
+
+    } */
+
+
+
+    /*
+        try {
+            reader = new BufferedReader(new InputStreamReader(getAssets().open(textFile), "string"));
+
+            //do reading, usually loop until end of file reading
+            String mLine;
+            while ((mLine = reader.readLine()) !=null) {
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } */
+
+    /*
+        Scanner sc = new Scanner(new File(textFile));
+        while (sc.hasNextLine())
+            listOfWords.add(sc.nextLine());
+    */
+    /*
         try (BufferedReader bufReader = new BufferedReader(new FileReader(textFile))) {
 
             String line = bufReader.readLine();
@@ -53,77 +234,7 @@ public class Game {
             bufReader.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-
-    }
+        } */
 
 
-    public void choseWord(){
-
-        if (!listOfWords.isEmpty()) {
-
-            //Selects which of the words we should get
-
-            chosenWord = listOfWords.get(rand.nextInt(listOfWords.size()));
-
-            //int wordNumber = randomInt(0, (listOfWords.size()-1));
-            //chosenWord = listOfWords.get(wordNumber);
-
-            hideWord();
-
-            Log.w("choseWord", "Successfully picked a name from the arraylist");
-
-        } else {
-            Log.w("choseWord", "Couldn't get a word from Array");
-        }
-
-    }
-
-    public void hideWord() {
-
-        for (int i=0; i < chosenWord.length(); i++ ) {
-            hiddenWord += " _ ";
-        }
-
-    }
-
-    /*
-    public static int randomInt(int min, int max) {
-        int randomNum = rand.nextInt((max - min) + 1) + min;
-        return randomNum;
-    } */
-
-
-
-    public ArrayList getListOfWords() {
-        return listOfWords;
-    }
-
-    public void setListOfWords(ArrayList listOfWords) {
-        this.listOfWords = listOfWords;
-    }
-
-    public String getGameMode() {
-        return gameMode;
-    }
-
-    public void setGameMode(String gameMode) {
-        this.gameMode = gameMode;
-    }
-
-    public String getChosenWord() {
-        return chosenWord;
-    }
-
-    public void setChosenWord(String chosenWord) {
-        this.chosenWord = chosenWord;
-    }
-
-    public String getHiddenWord() {
-        return hiddenWord;
-    }
-
-    public void setHiddenWord(String hiddenWord) {
-        this.hiddenWord = hiddenWord;
-    }
 }

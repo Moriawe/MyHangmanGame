@@ -6,20 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".GameActivity">
 
+    <android.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintBottom_toTopOf="@+id/hangman_screen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
     <ImageView
         android:id="@+id/hangman_screen"
-        android:layout_width="356dp"
-        android:layout_height="307dp"
+        android:layout_width="258dp"
+        android:layout_height="212dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toTopOf="@+id/guess_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.093"
+        app:layout_constraintVertical_bias="0.429"
         tools:srcCompat="@tools:sample/avatars" />
 
     <EditText
@@ -27,7 +42,7 @@
         android:layout_width="294dp"
         android:layout_height="59dp"
         android:layout_marginStart="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="16dp"
         android:ems="10"
         android:hint="@string/guess_goes_here"
         android:inputType="textCapCharacters"
@@ -41,23 +56,25 @@
         android:layout_height="60dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#009688"
+        android:onClick="checkLetter"
         app:layout_constraintBottom_toTopOf="@+id/view_of_played_letters"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/guess_edit_text"
-        app:srcCompat="@android:drawable/ic_menu_slideshow" />
+        app:srcCompat="@android:drawable/ic_menu_help" />
 
     <TextView
         android:id="@+id/view_of_played_letters"
-        android:layout_width="348dp"
-        android:layout_height="215dp"
+        android:layout_width="352dp"
+        android:layout_height="92dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="184dp"
         android:text="Dessa har du gissat på redan"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -66,10 +83,29 @@
         android:layout_height="58dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="24dp"
         android:text="Guess the word"
+        android:textSize="48sp"
         app:layout_constraintBottom_toTopOf="@+id/button_play"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.833"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <!--
+
+    <TextView
+        android:id="@+id/view_of_chosen_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="177dp"
+        android:layout_marginBottom="40dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/view_of_played_letters"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guess_edit_text" />
+        -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

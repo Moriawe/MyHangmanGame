@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         //Button buttonMedium = (Button) findViewById(R.id.button_medium);
         Button buttonHard = (Button) findViewById(R.id.button_hard);
 
+
+
     }
 
     public void startEasyGame(View view) {
@@ -41,4 +43,5 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("gamemode", "hard");
         startActivity(intent);
     }
+
 }
